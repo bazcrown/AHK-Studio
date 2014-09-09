@@ -1,16 +1,9 @@
 fold_all(){
 	csc().2662()
 }
-unfold_all(){
-	csc().2662(1)
-}
 fold_current_level(){
 	sc:=csc(),level:=sc.2223(sc.2166(sc.2008))&0xff,level:=level-1>=0?level-1:level
 	fold_level_x(level)
-}
-unfold_current_level(){
-	sc:=csc(),level:=sc.2223(sc.2166(sc.2008))&0xff,level:=level-1>=0?level-1:level
-	unfold_level_x(level)
 }
 fold_level_x(level=""){
 	sc:=csc()
@@ -23,6 +16,13 @@ fold_level_x(level=""){
 			sc.2237(current,0),current:=sc.2224(current,fold)
 		current+=1
 	}
+}
+unfold_all(){
+	csc().2662(1)
+}
+unfold_current_level(){
+	sc:=csc(),level:=sc.2223(sc.2166(sc.2008))&0xff
+	unfold_level_x(level)
 }
 unfold_level_x(level=""){
 	sc:=csc()

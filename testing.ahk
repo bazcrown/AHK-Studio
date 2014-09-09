@@ -6,7 +6,6 @@ testing(){
 		text1:=RegExReplace(text1,"_"," ")
 		StringUpper,text1,text1,T
 		list.=text1 "`n"
-		;m(text1)
 		pos:=found.Pos(1)+1
 	}
 	clipboard:=list
