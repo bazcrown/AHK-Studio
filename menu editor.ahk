@@ -72,6 +72,9 @@ menu_editor(x=0){
 	}
 	Menu,main,Delete
 	Gui,1:Menu,% menu("main")
+	for a,b in v.plugins
+		Menu,Plugins,Add,%b%,menuhandler
+	Menu,main,Add,Plugins,:Plugins
 	return
 	mesearch:
 	ControlGetText,edit,Edit1,% hwnd([2])

@@ -7,7 +7,7 @@ fold_current_level(){
 }
 fold_level_x(level=""){
 	sc:=csc()
-	if level=""
+	if (level="")
 		level:=InputBox(sc,"Fold Levels","Enter a level to fold")
 	current:=0
 	while,(current<sc.2154){
@@ -26,7 +26,7 @@ unfold_current_level(){
 }
 unfold_level_x(level=""){
 	sc:=csc()
-	if level=""
+	if (level="")
 		level:=InputBox(sc,"Fold Levels","Enter a level to unfold")
 	if ErrorLevel
 		Return

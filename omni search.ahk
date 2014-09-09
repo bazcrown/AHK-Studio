@@ -4,6 +4,8 @@ omni_search(start=""){
 		return
 	if !IsObject(omni)
 		omni:=new omni_search_class()
+	if (start="init")
+		return omni
 	newwin:=new windowtracker(20),code_explorer.scan(current())
 	Gui,Margin,0,0
 	WinGetPos,x,y,w,h,% hwnd([1])

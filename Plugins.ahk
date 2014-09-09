@@ -27,8 +27,12 @@ addmenu(menu,notify=""){
 	Menu,Plugins,Add,%menu%,menuhandler
 	if !(init){
 		Menu,main,Add,Plugins,:Plugins
-		init:=1
+		code_explorer.plugins:=[]
+		init:=omni_search("init")
+		v.plugins:=[]
 	}
+	v.plugins.Insert(menu)
+	init.menulist.menu[menu]:={launch:"func",name:menu,text:clean(menu),type:"menu",sort:menu,additional1:hotkey,order:"name,additional1"}
 	if notify
 		plugin(menu)
 	menuhandler:
