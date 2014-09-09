@@ -1,5 +1,5 @@
 class code_explorer{
-	static explore:=[],TreeView:=[],sort:=[],function:="Om`n)^\s*((\w|[^\x00-\x7F])+)\((.*)?\)[\s+;.*\s+]?[\s*]?{",functions:=[]
+	static explore:=[],TreeView:=[],sort:=[],function:="Om`n)^\s*((\w|[^\x00-\x7F])+)\((.*)?\)[\s+;.*\s+]?[\s*]?{",label:="Om`n)^\s*(\w*):[\s+;]",functions:=[]
 	scan(node){
 		explore:=[],bits:=[],method:=[]
 		for a,b in ["menu","file","label","method","function","hotkey","class"]
@@ -7,7 +7,13 @@ class code_explorer{
 		filename:=ssn(node,"@file").text,parentfile:=ssn(node.ParentNode,"@file").text
 		skip:=ssn(node,"@skip").text?1:0
 		code:=update({get:filename}),pos:=1
-		for type,find in {hotkey:"Om`n)^\s*([#|!|^|\+|~|\$|&|<|>|*]*?\w+)::",label:"Om`n)^\s*(\w*):[\s+;]"}{
+		if pos:=InStr(code,"/*"){
+			while,pos:=RegExMatch(code,"UOms`n)^(\/\*.*\*\/)",found,pos){
+				rep:=RegExReplace(found.1,"(:|\(|\))","_"),pos:=found.Pos(1)+1,rp:=found.1
+				StringReplace,code,code,%rp%,%rep%,All
+			}
+		}
+		for type,find in {hotkey:"Om`n)^\s*([#|!|^|\+|~|\$|&|<|>|*]*?\w+)::",label:this.label}{
 			pos:=1
 			while,pos:=RegExMatch(code,find,fun,pos){
 				np:=StrPut(SubStr(code,1,fun.Pos(1)),"utf-8")-1-(StrPut(SubStr(fun.1,1,1),"utf-8")-1)
