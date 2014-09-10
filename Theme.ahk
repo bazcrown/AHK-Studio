@@ -122,7 +122,7 @@ Theme(info=""){
 		m("Your current color input mode is now set to " mode[method])
 	}if (v.themelist[TV_GetParent(A_EventInfo)]="Download Themes"){
 		temp:=new xml("temp"),TV_GetText(filename,A_EventInfo)
-		info:=URLDownloadToVar("http://files.maestrith.com/AHKStudio/themes/" filename)
+		info:=URLDownloadToVar("http://files.maestrith.com/AHK-Studio/themes/" filename)
 		temp.xml.loadxml(SubStr(info,InStr(info,"<")))
 		rem:=settings.ssn("//fonts"),rem.ParentNode.RemoveChild(rem)
 		settings.ssn("*").appendchild(temp.ssn("*"))
@@ -155,7 +155,7 @@ Theme(info=""){
 		}
 		SplashTextOn,200,50,Downloading Themes,Please Wait...
 		wb:=ComObjCreate("HTMLfile")
-		wb.write(URLDownloadToVar("http://files.maestrith.com/AHKStudio/themes/"))
+		wb.write(URLDownloadToVar("http://files.maestrith.com/AHK-Studio/themes/"))
 		while,aa:=wb.links.item[A_Index-1].innerhtml
 			if InStr(aa,".xml")
 				TV_Add(aa,parent)

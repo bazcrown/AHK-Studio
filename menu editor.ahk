@@ -82,7 +82,7 @@ menu_editor(x=0){
 	menudefault:
 	SplashTextOn,,40,Downloading Required Files,Please Wait...
 	menus.xml.save("lib\menusbackup " a_now ".xml")
-	URLDownloadToFile,http://files.maestrith.com/alpha/Studio/menus.xml,lib\temp.xml
+	URLDownloadToFile,http://files.maestrith.com/AHK-Studio/menus.xml,lib\temp.xml
 	FileRead,menu,lib\temp.xml
 	menus.xml.loadxml(menu)
 	menus.save(1)

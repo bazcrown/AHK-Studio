@@ -11,7 +11,7 @@ filecheck(){
 			list.=nn.text "`r`n"
 		list:=RegExReplace(list,"&")
 		SplashTextOn,,40,Downloading Required Files,Please Wait...
-		URLDownloadToFile,http://files.maestrith.com/alpha/Studio/menus.xml,lib\temp.xml
+		URLDownloadToFile,http://files.maestrith.com/AHK-Studio/menus.xml,lib\temp.xml
 		FileRead,menu,lib\temp.xml
 		temp:=new xml("temp")
 		temp.xml.loadxml(menu)
@@ -52,11 +52,11 @@ filecheck(){
 		updatedate:=1
 	}
 	if !FileExist("lib\commands.xml")
-		FileAppend,% URLDownloadToVar("http://files.maestrith.com/alpha/Studio/commands.xml"),lib\commands.xml
+		FileAppend,% URLDownloadToVar("http://files.maestrith.com/AHK-Studio/commands.xml"),lib\commands.xml
 	if !FileExist("scilexer.dll")
-		URLDownloadToFile,http://files.maestrith.com/alpha/Studio/SciLexer.dll,SciLexer.dll
+		URLDownloadToFile,http://files.maestrith.com/AHK-Studio/SciLexer.dll,SciLexer.dll
 	if !FileExist("AHKStudio.ico")
-		urldownloadtofile,http://files.maestrith.com/alpha/Studio/AHKStudio.ico,AHKStudio.ico
+		urldownloadtofile,http://files.maestrith.com/AHK-Studio/AHKStudio.ico,AHKStudio.ico
 	SplashTextOff
 	if !settings.ssn("//options")
 		settings.Add({path:"options",att:{}})
