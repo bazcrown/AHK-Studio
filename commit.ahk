@@ -74,6 +74,7 @@ commit(commitmsg){
 			FileDelete,%a%
 			FileAppend,%text%,%a%,utf-8
 		}
+		return 1
 	}
 	Else
 		m("An Error Occured")

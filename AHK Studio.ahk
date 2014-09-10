@@ -2,37 +2,28 @@
 ;download complete
 /*
 	TODO LIST:
-	hotkey for adding selected words to a word list for the program	
-	;uri encode files I think.
-	for context sensitive
-		replace the text inside ".*" first before trying to parse it with _ to keep the spacing. get rid of () issues
-	add window class and Resize
-	make windows show up inititally inside of the main window. centered.
-	possible_windows_to_replace(){
-		upload
-		find
+	tidy up script:
+	-hotkey for adding selected words to a word list for the program	
+	-make windows show up inititally inside of the main window. centered.
+	-Change the version script to add tags for <changed> and so on.
+	windows_to_replace(){
 		Themes
 		Code Vault
 		Split Code
 		Scratch Pad
-		Personal Variable List
-		ftp server settings
-		Edit Replacements
 	}
 	video(){
-		Omni-Search (Files,Menu items,)
+		Omni-Search (Files,Menu items,...etc)
 		Multiple Segments (discuss how segments work and show them)
 		Quick Find
 		GitHub Integration
 	}
 	Don_Corleon(){
 		Multiple Scintilla windows over/under rather than side by side.
-		resizable windows (all)
 	}
-	tidy up script:
-	-Arrows.ahk is where I left off.
-	KeyboardCat
-	closing files should only close main not includes
+	KeyboardCat(){
+		closing files should only close main not includes
+	}
 	Suggested_by_bgm(){
 		Code_Vault(){
 			Add an area for comments for snippets
@@ -43,10 +34,6 @@
 		compile(){
 			Add ability to insert icons into compiled exe
 		}
-	}
-	Separate_thread(){
-		Ronins
-		download/upload different thread
 	}
 */
 DetectHiddenWindows,On

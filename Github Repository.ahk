@@ -77,7 +77,25 @@ Github_Repository(){
 	ssn(verfile.node,"versions/version[@number='" lastversion "']").text:=newwin[].versioninfo
 	Return
 	commit:
+	TV_GetText(version,TV_GetSelection())
 	ControlGetText,cm,Edit2,% hwnd([25])
-	commit(cm)
+	if !(version&&cm)
+		return m("Please set a version and create some information for that version.")
+	ok:=commit(cm)
+	ea:=settings.ea("//github")
+	top:=vversion.ssn("//*[@file='" current(2).file "']"),node:=ssn(top,"versions/version[@number='" version "']")
+	repo:=ssn(top,"@repo").text
+	http:=ComObjCreate("WinHttp.WinHttpRequest.5.1")
+	if (release:=ssn(node,"@id").text){
+		url:=github.url "/repos/" ea.owner "/" repo "/releases/" release "?access_token=" ea.token
+		http.Open("DELETE",url),http.send(),node.removeattribute("id")
+	}
+	url:=github.url "/repos/" ea.owner "/" repo "/releases?access_token=" ea.token
+	notes:=github.utf8(cm)
+	json={"tag_name":"%version%","target_commitish":"master","name":"%version%","body":"%notes%","draft":false,"prerelease":false}
+	http.Open("POST",url),http.send(json)
+	info:=github.find("url",http.ResponseText)
+	id:=RegExReplace(info,"(.*)\/")
+	node.SetAttribute("id",id)
 	return
 }
