@@ -1,25 +1,36 @@
 menu_editor(x=0){
-	static hwnd,newwin,main:="main",TreeView
+	static hwnd,newwin,main:="main",TreeView,icons,il,tvlist
+	if (x="tvlist")
+		return {tvlist:tvlist,il:il,icons:icons}
 	if !x{
-		newwin:=new windowtracker(2)
-		newwin.Add(["Text,,Control+UP/DOWN/LEFT/RIGHT will move items","ComboBox,gmesearch w200","TreeView,w500 h400 hwndhwnd,,wh","Button,gaddmenu,Add A New Menu,y","Button,x+10 gchangeitem,Change Item,y","Button,x+10 gaddsep,Add Separator,y","Button,x+10 gedithotkey Default,Edit Hotkey,y","Button,xm gmenudefault,Re-Load Defaults,y","Button,x+10 gsortmenus,Sort Menus Alphabetically,y"])
+		newwin:=new windowtracker(2),icons:=[]
+		list:=menus.sn("//*[@icon!='']")
+		if (list.length){
+			il:=IL_Create(list.length)
+			while,ii:=list.item[A_Index-1]{
+				ea:=menus.ea(ii)
+				if !icons[ea.filename,ea.icon]
+					icons[ea.filename,ea.icon]:=IL_Add(il,ea.filename,ea.icon)
+			}
+			mil:="ImageList" il
+		}
+		newwin.Add(["Text,,Control+UP/DOWN/LEFT/RIGHT will move items","ComboBox,gmesearch w200","TreeView,w500 h400 hwndhwnd " mil ",,wh","Button,gaddmenu,Add A New Menu,y","Button,x+10 gchangeitem,Change Item,y","Button,x+10 gaddsep,Add Separator,y","Button,x+10 gedithotkey Default,Edit Hotkey,y","Button,xm gmenudefault,Re-Load Defaults,y","Button,x+10 gsortmenus,Sort Menus Alphabetically,y","Button,xm gmeci,Change Icon,y","Button,x+10 gmeri,Remove Icon,y","Button,x+10 gmerai,Remove All Icons From Current Menu,y"])
 		hotkeys([2],{"Del":"deletenode","^up":"moveup","^down":"movedown","^left":"moveover","^right":"moveunder"})
 		newwin.Show("Menu Editor")
 		ControlGet,TreeView,hwnd,,SysTreeView321,% hwnd([2])
 	}
 	Gui,1:Menu
 	Gui,2:Default
+	GuiControl,2:-Redraw,SysTreeView321
 	list:=menus.sn("//main/descendant::*")
 	root:=0
-	GuiControl,2:-Redraw,SysTreeView321
-	del:=[],next:=0,lll:="",TV_Delete()
+	del:=[],next:=0,lll:="",TV_Delete(),tvlist:=[]
 	while,ll:=list.item[A_Index-1]{
-		hotkey:=ssn(ll,"@hotkey").text
-		hot:=convert_hotkey(hotkey)
-		hot:=hot?" - Hotkey = " hot:""
-		hotkey:=hotkey?"`t" convert_hotkey(hotkey):""
+		hotkey:=ssn(ll,"@hotkey").text,hot:=convert_hotkey(hotkey),hot:=hot?" - Hotkey = " hot:"",hotkey:=hotkey?"`t" convert_hotkey(hotkey):""
 		parent:=ssn(ll.ParentNode,"@tv").text?ssn(ll.ParentNode,"@tv").text:0
-		root:=TV_Add(RegExReplace(ssn(ll,"@clean").text,"_"," ") hot,parent),lll.=RegExReplace(ssn(ll,"@clean").text,"_"," ") "|"
+		icon:=icons[ssn(ll,"@filename").text,ssn(ll,"@icon").text]?"icon" icons[ssn(ll,"@filename").text,ssn(ll,"@icon").text]:"icon-1"
+		root:=TV_Add(RegExReplace(ssn(ll,"@clean").text,"_"," ") hot,parent,icon),lll.=RegExReplace(ssn(ll,"@clean").text,"_"," ") "|"
+		tvlist[root]:=ll
 		ll.SetAttribute("tv",root)
 		deletelist.Insert(clean(ssn(ll,"@name").text))
 		if ssn(ll,"@last").text
@@ -36,14 +47,37 @@ menu_editor(x=0){
 			Menu,% clean(parent),DeleteAll
 		}
 	}
-	tv:=menus.ssn("//*[@last]")
-	if tv
-		TV_Modify(ssn(tv,"@tv").text,"Select"),tv.removeattribute("last")
 	top:=count>10?count-10:0
 	tv:=ssn(list.item[top],"@tv").text
 	TV_Modify(tv,"VisFirst")
+	if x!=1
+		ControlFocus,SysTreeView321,% hwnd([2])
+	tv:=menus.ssn("//*[@last='1']")
+	if tv{
+		TV_Modify(ssn(tv,"@tv").text,"Select vis Focus"),tv.removeattribute("last")
+		Sleep,100
+	}
+	else
+		TV_Modify(TV_GetNext(0),"Select Vis Focus")
+	last:=menus.sn("//*[@last=1]")
+	while,ll:=last.item[A_Index-1]
+		ll.removeattribute("last")
 	GuiControl,2:+Redraw,SysTreeView321
-	ControlFocus,SysTreeView321,% hwnd([2])
+	Return
+	merai:
+	tv:=TV_GetParent(TV_GetSelection())?TV_GetParent(TV_GetSelection()):TV_GetSelection()
+	node:=tvlist[tv]
+	list:=sn(node,"*")
+	while,ll:=list.item[A_Index-1]
+		for a,b in ["filename","icon"]
+			ll.removeattribute(b),TV_Modify(ssn(ll,"@tv").text,"Icon-1")
+	return
+	meri:
+	node:=tvlist[TV_GetSelection()]
+	node.removeattribute("filename"),node.removeattribute("icon"),TV_Modify(ssn(node,"@tv").text,"Icon-1")
+	return
+	meci:
+	new icon_browser({action:"return",Func:"menu_editor_icon",caller:hwnd(2),close:1})
 	return
 	menudefault:
 	SplashTextOn,,40,Downloading Required Files,Please Wait...
@@ -203,4 +237,17 @@ menu_editor(x=0){
 	}
 	menu_editor(1)
 	return
+}
+menu_editor_icon(info){
+	Gui,2:Default
+	count:=menus.sn("//*[@filename]").length
+	obj:=menu_editor("tvlist"),tvlist:=obj.tvlist,node:=tvlist[TV_GetSelection()],node.SetAttribute("filename",info.file),node.SetAttribute("icon",info.number)
+	icons:=obj.icons,il:=obj.il
+	if !(icons[info.file,info.number]){
+		num:=icons[info.file,info.number]:=IL_Add(il,info.file,info.number)
+		TV_Modify(TV_GetSelection(),"icon" num)
+	}
+	if !count
+		node.SetAttribute("last",1),menu_editor(reload)
+	WinActivate,% hwnd([2])
 }

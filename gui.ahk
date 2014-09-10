@@ -59,12 +59,12 @@ gui(){
 	TV_Add("Open files to have items populated here"),TV_Add("Right click to refresh")
 	hwnd("fe",tv),hwnd("ce",tv2),refreshthemes(),debug.off(),list:=menus.sn("//main/descendant::*"),open:=settings.sn("//open/*")
 	Gui,1:TreeView,% hwnd("fe")
-	Gui,1:Menu,% Menu("main")
-	Gui,1:Menu
-	while,ll:=list.item[A_Index-1]{
-		menu:=ssn(ll,"@name").text,parent:=ssn(ll.ParentNode,"@name").text,parent:=parent?parent:main
-		Menu,% clean(parent),DeleteAll
-	}
+	;Gui,1:Menu,% Menu("main")
+	;Gui,1:Menu
+	;while,ll:=list.item[A_Index-1]{
+	;	menu:=ssn(ll,"@name").text,parent:=ssn(ll.ParentNode,"@name").text,parent:=parent?parent:main
+	;	Menu,% clean(parent),DeleteAll
+	;}
 	Gui,1:Menu,% Menu("main")
 	Gui,1:Show,%pos% %max%,AHK Studio
 	while,oo:=open.item[A_Index-1]{

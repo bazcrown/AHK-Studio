@@ -25,7 +25,7 @@ menu(menuname){
 				Continue
 			Menu,%name%,Add,% ea.name hotkey,%route%
 			if value:=settings.ssn("//*/@" clean(ea.name)).text{
-				Menu,% name,Check,% ea.name hotkey
+				Menu,%name%,Check,% ea.name hotkey
 				v.options[clean(ea.name)]:=value
 			}
 		}
@@ -37,6 +37,11 @@ menu(menuname){
 		}
 		b.under:=b.under?b.under:menuname
 		Menu,% b.under,Add,% b.menu,% ":" clean(b.menu)
+	}
+	list:=menus.sn("//*[@filename!='']")
+	while,ll:=list.item[A_Index-1]{
+		ea:=menus.ea(ll),parent:=menus.ea(ll.ParentNode),parent.name:=parent.name?parent.name:"main",hotkey:=ea.hotkey?"`t" convert_hotkey(ea.hotkey):""
+		Menu,% clean(parent.name),icon,% ea.name hotkey,% ea.filename,% ea.icon
 	}
 	return menuname
 	menuroute:

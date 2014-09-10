@@ -120,7 +120,7 @@ class toolbar{
 				addbutton(this)
 			else if GetKeyState("Ctrl","P"){
 				if button
-					new icon_browser([this.buttons[NumGet(A_EventInfo+12)],NumGet(A_EventInfo+12),this.ahkid,this])
+					new icon_browser([this.buttons[NumGet(A_EventInfo+12)],NumGet(A_EventInfo+12),this.ahkid,this,"toolbar"])
 			}else if !button.runfile{
 				fun:=IsFunc(button.func)?button.func:""
 				if fun
