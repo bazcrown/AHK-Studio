@@ -12,6 +12,8 @@ Scratch_Pad(){
 	Gui,Add,Button,gsprun,Run
 	Gui,Add,Button,x+10 gspdyna,Dyna Run
 	Gui,Add,Button,x+10 gspkill,Kill Process
+	if IsLabel("postscratchpad")
+		Gui,Add,Button,x+10 gpostscratchpad,Post To ahk.us.to
 	pos:=settings.ssn("//Scratch_Pad").Text?settings.ssn("//Scratch_Pad").Text:""
 	Gui,Show,%pos%,Scratch Pad
 	WinWait,% hwnd([14])
@@ -58,7 +60,7 @@ Scratch_Pad(){
 	14GuiSize:
 	sc:=csc()
 	ControlGetPos,,,,h,Button1,% hwnd([14])
-	Loop,3
+	Loop,4
 		GuiControl,move,Button%A_Index%,% "y" A_GuiHeight-h
 	WinMove,% "ahk_id" v.scratch.sc,,0,0,A_GuiWidth,% A_GuiHeight-h
 	return
