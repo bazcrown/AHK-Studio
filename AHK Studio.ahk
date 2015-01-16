@@ -173,6 +173,7 @@ return
 #Include get access.ahk
 #Include Get_Include.ahk
 #Include getpos.ahk
+#Include GetWebBrowser.ahk
 #Include Github Repository.ahk
 #Include global.ahk
 #Include google search selected.ahk

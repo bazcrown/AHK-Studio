@@ -16,6 +16,8 @@ fix_indent(sc=""){
 	filename:=files.ssn("//*[@sc='" sc.2357 "']/@filename").text
 	;ToolTip,% sc.sc "`n" v.scratch.sc,,,2
 	SplitPath,filename,,,ext
+	if(ext="xml")
+		return
 	if (ext!="ahk"&&v.scratch.sc!=sc.sc&&skip!=1&&v.options.Disable_auto_indent_for_non_ahk_files!=1)
 		return
 	skip:=""
