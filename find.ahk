@@ -51,6 +51,8 @@ find(){
 		ea:=foundinfo[TV_GetSelection()],sc:=csc(),tv(files.ssn("//*[@file='" ea.file "']/@tv").text)
 		Sleep,100
 		sc.2160(ea.start,ea.end),sc.2169
+		if(v.options.auto_close_find)
+			hwnd({rem:5})
 	}
 	else
 		sel:=TV_GetSelection(),TV_Modify(sel,ec:=TV_Get(sel,"E")?"-Expand":"Expand")

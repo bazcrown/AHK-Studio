@@ -59,6 +59,7 @@
 			<menu name="Widths" clean="Widths"></menu></menu>
 		<menu name="&amp;Options" clean="Options">
 			<menu name="Auto Advance Quote" clean="Auto_Advance_Quote"></menu>
+			<menu clean="Auto_Close_Find" name="Auto Close Find"></menu>
 			<menu name="Auto Set Area On Quick Find" clean="Auto_Set_Area_On_Quick_Find"></menu>
 			<menu name="Autocomplete Enter Newline" clean="Autocomplete_Enter_Newline"></menu>
 			<menu name="Center Caret" clean="Center_Caret"></menu>
@@ -172,5 +173,4 @@
 			<menu name="Testing" hotkey="!F1" clean="Testing"></menu></menu>
 		<menu name="Scratch &amp;Pad" clean="Scratch_Pad"></menu>
 	</main>
-	<date>20150105</date>
 </menus>

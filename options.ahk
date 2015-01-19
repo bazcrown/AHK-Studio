@@ -62,6 +62,7 @@ options(){
 	Auto_Advance_Quote:
 	Auto_Set_Area_On_Quick_Find:
 	Disable_Auto_Indent_For_Non_Ahk_Files:
+	Auto_Close_Find:
 	onoff:=settings.ssn("//options/@ " A_ThisLabel).text?0:1
 	att:=[],att[A_ThisLabel]:=onoff
 	v.options[A_ThisLabel]:=onoff
