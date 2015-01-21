@@ -16,25 +16,21 @@ class omni_search_class{
 		}
 	}
 	search(){
-		list:=this.menulist.menu.clone()
-		fl:=files.sn("//file")
+		list:=this.menulist.menu.clone(),fl:=files.sn("//file")
 		while,ff:=fl.item[A_Index-1]{
 			file:=ssn(ff,"@file").text
 			SplitPath,file,fn,dir
 			list.Insert({root:ssn(ff.parentnode,"@file").text,filename:file,dir:dir,name:fn,type:"file",order:"name,dir"})
 		}
-		list.bookmarks:=[]
-		for a,b in code_explorer.bookmarks
-			for c,d in b
-				list.Insert(d)
-		for a,b in code_explorer.explore
-			for q,r in b
-				for c,d in r
-					for e,f in d
-						list.Insert(f)
-		list.fun:=[]
-		for a,b in code_explorer.functions[current(2).file]
-			list.fun[a]:=b
+		list.bookmarks:=[],bm:=cexml.sn("//bookmark")
+		while,bb:=bm.Item[A_Index-1],ea:=xml.ea(bb)
+			list.Insert(ea)
+		all:=cexml.sn("//info")
+		while,aa:=all.Item[A_Index-1],ea:=xml.ea(aa)
+			list.Insert(ea)
+		list.fun:=[],fun:=cexml.sn("//info[@type='function']")
+		while,ff:=fun.Item[A_Index-1],ea:=xml.ea(ff)
+			list.fun[ea.text]:=ea
 		return list
 	}
 }

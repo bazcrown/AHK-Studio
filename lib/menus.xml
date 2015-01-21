@@ -39,6 +39,7 @@
 			<menu name="&amp;Find" clean="Find" hotkey="^F"></menu>
 			<menu name="Fi&amp;x Indent" hotkey="" clean="Fix_Indent"></menu>
 			<menu name="Ft&amp;p Servers" clean="Ftp_Servers"></menu>
+			<menu clean="Go_To_Line" name="Go To Line"></menu>
 			<menu name="Jump to Proj&amp;ect" clean="Jump_to_Project" hotkey="!S"></menu>
 			<menu name="&amp;Jump to Segment" hotkey="!j" clean="Jump_to_Segment"></menu>
 			<menu name="&amp;Menu Editor" func="flan" clean="Menu_Editor"></menu>
@@ -123,6 +124,12 @@
 			<menu name="Hide Menu" clean="Hide_Menu"></menu>
 			<menu name="Highlight to Matching Brace" clean="Highlight_to_Matching_Brace" hotkey="^!M"></menu>
 			<menu name="Insert Code Vault Text" hotkey="+^Escape" clean="Insert_Code_Vault_Text"></menu>
+			<menu clean="Jump_To" name="Jump To">
+				<menu clean="Jump_To_Class" name="Jump To Class"></menu>
+				<menu clean="Jump_To_First_Available" name="Jump To First Available" hotkey="!F1"></menu>
+				<menu clean="Jump_To_Function" name="Jump To Function"></menu>
+				<menu clean="Jump_To_Label" name="Jump To Label"></menu>
+				<menu clean="Jump_To_Method" name="Jump To Method"></menu></menu>
 			<menu name="Move Selected Lines Down" hotkey="+^Down" clean="Move_Selected_Lines_Down"></menu>
 			<menu name="Move Selected Lines Up" hotkey="+^Up" clean="Move_Selected_Lines_Up"></menu>
 			<menu clean="Navigation" name="Navigation">
@@ -170,7 +177,8 @@
 			<menu name="&amp;Forum" clean="Forum"></menu>
 			<menu name="&amp;Help" clean="Help"></menu>
 			<menu name="&amp;Social" clean="Social"></menu>
-			<menu name="Testing" hotkey="!F1" clean="Testing"></menu></menu>
+			<menu name="Testing" hotkey="" clean="Testing"></menu></menu>
 		<menu name="Scratch &amp;Pad" clean="Scratch_Pad"></menu>
 	</main>
+	<date>20150120</date>
 </menus>

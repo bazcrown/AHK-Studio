@@ -123,5 +123,7 @@ qf(){
 		goto qf
 	else if(A_ThisHotkey="+Enter")
 		replace()
+	else
+		marginwidth()
 	return
 }
