@@ -1,5 +1,5 @@
 options(){
-	static list:={Virtual_Space:[2596,3],show_eol:2356,Show_Caret_Line:2096,show_whitespace:2021,word_wrap:2268,center_caret:[2403,0x15,75]}
+	static list:={Virtual_Space:[2596,3],show_eol:2356,Show_Caret_Line:2096,show_whitespace:2021,word_wrap:2268,Hide_Indentation_Guides:2132,center_caret:[2403,0x15,75]}
 	optionslist:=settings.sn("//Quick_Find_Settings/@*|//options/@*")
 	while,ll:=optionslist.item[A_Index-1]
 		v.options[ll.nodename]:=ll.text
@@ -15,6 +15,7 @@ options(){
 	Disable_Backup:
 	Disable_Autosave:
 	Disable_Variable_List:
+	Hide_Indentation_Guides:
 	sc:=csc()
 	onoff:=settings.ssn("//options/@" A_ThisLabel).text?0:1
 	att:=[],att[A_ThisLabel]:=onoff
@@ -33,7 +34,7 @@ options(){
 	else if IsObject(List[a])&&onoff=0
 		d[list[a].1](0)
 	if (A_ThisLabel="Hide_Code_Explorer"||A_ThisLabel="Hide_Project_Explorer")
-		Resize()
+		resize()
 	return
 	onoff:=settings.ssn("//options/@" A_ThisLabel).text?0:1
 	att:=[],att[A_ThisLabel]:=onoff
