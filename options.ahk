@@ -25,16 +25,22 @@ options(){
 	sc[list[A_ThisLabel]](onoff)
 	option:=settings.ssn("//options")
 	ea:=settings.ea(option)
-	for c,d in s.main
-		for a,b in ea
-		if !IsObject(List[a]){
-			d[list[a]](b)
-	}Else if IsObject(List[a])&&b
-		d[list[a].1](List[a].2,List[a].3)
-	else if IsObject(List[a])&&onoff=0
-		d[list[a].1](0)
+	for c,d in s.main{
+		for a,b in ea{
+			if !IsObject(List[a]){
+				if(a="Hide_Indentation_Guides")
+					b:=b?0:1
+				d[list[a]](b)
+			}Else if IsObject(List[a])&&b
+				d[list[a].1](List[a].2,List[a].3)
+			else if IsObject(List[a])&&onoff=0
+				d[list[a].1](0)
+		}
+	}
 	if (A_ThisLabel="Hide_Code_Explorer"||A_ThisLabel="Hide_Project_Explorer")
 		resize()
+	if(A_ThisLabel="Hide_Indentation_Guides")
+		onoff:=onoff?0:1,sc[list[A_ThisLabel]](onoff)
 	return
 	onoff:=settings.ssn("//options/@" A_ThisLabel).text?0:1
 	att:=[],att[A_ThisLabel]:=onoff
