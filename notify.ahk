@@ -116,6 +116,7 @@ notify(csc=""){
 			getpos()
 		}
 	}
+	;
 	if (fn.code=2022){
 		if v.options.Autocomplete_Enter_Newline
 			SetTimer,sendenter,100

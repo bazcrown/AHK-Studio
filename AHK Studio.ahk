@@ -163,6 +163,7 @@ return
 #Include filecheck.ahk
 #Include Find Nearest Brace.ahk
 #Include find.ahk
+#Include Find_Replace.ahk
 #Include fix after.ahk
 #Include fix indent.ahk
 #Include focus.ahk

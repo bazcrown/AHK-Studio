@@ -22,8 +22,7 @@ find(){
 		infopos.setattribute("search",find),foundinfo:=[]
 		Gui,5:Default
 		GuiControl,5:-Redraw,SysTreeView321
-		list:=ea.allfiles?files.sn("//file/@file"):sn(current(1),"*/@file")
-		contents:=update("get").1,TV_Delete()
+		list:=ea.allfiles?files.sn("//file/@file"):sn(current(1),"*/@file"),contents:=update("get").1,TV_Delete()
 		pre:="m`nO",pre.=ea.cs?"":"i",pre.=ea.greed?"":"U",parent:=0,ff:=ea.regex?find:"\Q" find "\E"
 		while,l:=list.item(A_Index-1){
 			out:=contents[l.text],found:=1,r:=0,fn:=l.text

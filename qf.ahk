@@ -12,9 +12,7 @@ qf(){
 	}
 	pre:="O",find1:=""
 	find1:=v.options.regex?find:"\Q" RegExReplace(find, "\\E", "\E\\E\Q") "\E"
-	pre.=v.options.greed?"":"U"
-	pre.=v.options.case_sensitive?"":"i"
-	pre.=v.options.multi_line?"m`n":""
+	pre.=v.options.greed?"":"U",pre.=v.options.case_sensitive?"":"i",pre.=v.options.multi_line?"m`n":""
 	find1:=pre ")" find1 ""
 	if (find=""||find="."||find=".*"||find="\"){
 		sc.2571
