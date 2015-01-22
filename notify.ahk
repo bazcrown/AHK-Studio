@@ -15,12 +15,7 @@ notify(csc=""){
 		fn[b]:=NumGet(Info+(A_PtrSize*a))
 	if (fn.code=""||fn.code=2013||Info=256)
 		return
-	sc:=csc?csc:csc()
-	csc:=""
-	if(fn.code=2000){
-		t(A_Now)
-		;sc.flan()
-	}
+	sc:=csc?csc:csc(),csc:=""
 	if (fn.code=2002){
 		Gui,1:TreeView,% hwnd("fe")
 		list:=files.sn("//*[@file='" current(3).file "']")
@@ -114,7 +109,7 @@ notify(csc=""){
 					Add_Bookmark(line)
 			}else{
 				if (sc.2046(line)&1)
-					sc.2044(line,0)
+					sc.2044(line,0),m(positions.ssn("//main[@file='" ssn(current(),"@file").text "']").xml,positions[])
 				else
 					sc.2043(line,0)
 			}
@@ -155,11 +150,4 @@ notify(csc=""){
 	if v.options.full_auto
 		SetTimer,fullauto,10
 	return
-}
-plugin(fn){
-	static notify:=[]
-	if !IsObject(fn)
-		return notify.Insert(clean(fn) "_notify")
-	for a,b in notify
-		%b%(fn)
 }

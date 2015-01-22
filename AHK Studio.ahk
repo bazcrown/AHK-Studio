@@ -177,6 +177,7 @@ return
 #Include GetWebBrowser.ahk
 #Include Github Repository.ahk
 #Include global.ahk
+#Include Go To Line.ahk
 #Include google search selected.ahk
 #Include gui.ahk
 #Include help.ahk
@@ -194,6 +195,7 @@ return
 #Include Jump To Next Bookmark.ahk
 #Include jump to project.ahk
 #Include Jump to Segment.ahk
+#Include Jump To.ahk
 #Include keywords.ahk
 #Include lastfiles.ahk
 #Include listvars.ahk
@@ -224,6 +226,7 @@ return
 #Include OtherInstance.ahk
 #Include paste.ahk
 #Include Personal Variable List.ahk
+#Include Plugin.ahk
 #Include Plugins.ahk
 #Include popftp.ahk
 #Include posinfo.ahk
@@ -300,6 +303,7 @@ return
 #Include update github info.ahk
 #Include update.ahk
 #Include upload.ahk
+#Include Upper.ahk
 #Include uppos.ahk
 #Include URLDownloadToVar.ahk
 #Include varbrowser.ahk
@@ -307,6 +311,3 @@ return
 #Include window.ahk
 #Include WM COPYDATA.ahk
 #Include Words In Document.ahk
-#Include Upper.ahk
-#Include Jump To.ahk
-#Include Go To Line.ahk
