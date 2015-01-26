@@ -130,6 +130,7 @@
 				<menu clean="Jump_To_Class" name="Jump To Class"></menu>
 				<menu clean="Jump_To_First_Available" name="Jump To First Available" hotkey="!F1"></menu>
 				<menu clean="Jump_To_Function" name="Jump To Function"></menu>
+				<menu clean="Jump_To_Include" name="Jump To Include"></menu>
 				<menu clean="Jump_To_Label" name="Jump To Label"></menu>
 				<menu clean="Jump_To_Method" name="Jump To Method" hotkey=""></menu></menu>
 			<menu name="Move Selected Lines Down" hotkey="+^Down" clean="Move_Selected_Lines_Down"></menu>
@@ -182,5 +183,5 @@
 			<menu name="Testing" hotkey="!F2" clean="Testing"></menu></menu>
 		<menu name="Scratch &amp;Pad" clean="Scratch_Pad"></menu>
 	</main>
-	<date>20150122</date>
+	<date>20150126</date>
 </menus>

@@ -7,6 +7,7 @@
 	Find/Replace
 	-Current Segment, Current Project, All Files
 	maestrith(){
+		when the user enters goto/gosub have it show a list of all of the labels
 		have it so that when you type in the name of a class then . it will bring up a list of the methods
 	}
 	bkid(){
