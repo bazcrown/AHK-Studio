@@ -38,7 +38,7 @@ notify(csc=""){
 			sc.2645(start,end-start)
 			sc.2003(sc.2008,vault.ssn("//*[@name='" vv "']").text)
 			if v.options.full_auto
-				SetTimer,fullauto
+				SetTimer,fullauto,-1
 		}
 	}
 	;if (fn.code=2027)

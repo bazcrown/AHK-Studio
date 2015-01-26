@@ -1,4 +1,5 @@
-new(filename=""){
+new(filename:="",text:=""){
+	template:=settings.ssn("//template").text?settings.ssn("//template").text:"`;New File"
 	if (filename=1){
 		index:=0
 		if !FileExist(A_WorkingDir "\Projects")
@@ -10,14 +11,18 @@ new(filename=""){
 		index++
 		FileCreateDir,% A_WorkingDir "\Projects\Untitled\Untitled" index
 		filename:=A_WorkingDir "\Projects\Untitled\Untitled" index "\Untitled.ahk"
-		FileAppend,`;New File,%filename%
+		text:=text?text:template
+		FileAppend,%text%,%filename%
 	}else if (filename=""){
-		FileSelectFile,filename,S,,Create A New Project,*.ahk
+		FileSelectFile,filename,S,% ProjectFolder(),Create A New Project,*.ahk
 		if ErrorLevel
 			return
 		filename:=InStr(filename,".ahk")?filename:filename ".ahk"
-		template:=settings.ssn("//template").text?settings.ssn("//template").text:"`;New File"
 		FileAppend,%template%,%filename%
+	}else if(text){
+		SplitPath,filename,,outdir
+		FileCreateDir,%outdir%
+		FileAppend,%text%,%filename%
 	}
 	Gui,1:Default
 	Gui,1:TreeView,SysTreeView321

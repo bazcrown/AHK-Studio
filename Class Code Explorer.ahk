@@ -4,7 +4,7 @@ class code_explorer{
 		explore:=[],bits:=[],method:=[]
 		filename:=ssn(node,"@file").text,parentfile:=ssn(node.ParentNode,"@file").text
 		if !main:=cexml.ssn("//main[@file='" parentfile "']")
-			main:=cexml.Add({path:"main",att:{file:parentfile}})
+			main:=cexml.Add({path:"main",att:{file:parentfile},dup:1})
 		if !cce:=ssn(main,"file[@file='" filename "']")
 			cce:=cexml.under({under:main,node:"file",att:{file:filename}})
 		else

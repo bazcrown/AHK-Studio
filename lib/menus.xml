@@ -34,6 +34,7 @@
 			<menu clean="Custom_Case_Settings" name="Custom Case Settings"></menu>
 			<menu name="Cut" clean="Cut"></menu>
 			<menu clean="Debug_Settings" name="Debug Settings"></menu>
+			<menu clean="Default_Project_Folder" name="Default Project Folder"></menu>
 			<menu name="&amp;Duplicate Line" hotkey="F2" clean="Duplicate_Line"></menu>
 			<menu name="Ed&amp;it Replacements" clean="Edit_Replacements"></menu>
 			<menu name="&amp;Find" clean="Find" hotkey="^F"></menu>

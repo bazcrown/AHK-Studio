@@ -14,8 +14,16 @@ find(){
 		ControlSetText,Button6,Search,% hwnd([5])
 	return
 	search:
+	;what's not working
+	;-Double click on a search term to goto it
+	;-pressing the jump button does not default to jump, it defaults to search (make a new button maybe?)
+	;-on any default press, get the focused control.
+	;--if focused=edit do a search
+	;--if focused=TreeView check to see if it needs to be expanded/contracted, if not jump
+ 	;--possibly make a "jump" separate from the context sensitive button and have it greyed out when you can not jump (top level)
 	ControlGetText,Button,Button6,% hwnd([5])
 	if (InStr(button,"search")){
+		;GuiControl,5:+g,SysTreeView321
 		ea:=newwin[]
 		if !find:=ea.find
 			Return
@@ -45,8 +53,7 @@ find(){
 		GuiControl,5:+Redraw,SysTreeView321
 		ControlSetText,Button6,Jump,% hwnd([5])
 		refreshing:=0
-	}
-	else if (Button="jump"){
+	}else if (Button="jump"){
 		ea:=foundinfo[TV_GetSelection()],sc:=csc(),tv(files.ssn("//*[@file='" ea.file "']/@tv").text)
 		Sleep,100
 		sc.2160(ea.start,ea.end),sc.2169

@@ -20,9 +20,8 @@ command_help(){
 			}
 		}
 		if !help:=GetWebBrowser(){
-			Run,% Chr(34) outdir "\AutoHotkey.chm" Chr(34),,,pid
-			WinWaitActive,ahk_pid%pid%
-			help:=GetWebBrowser()
+			Run,hh.exe %url%
+			return
 		}
 		help.navigate(url)
 		WinActivate,AutoHotkey Help

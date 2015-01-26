@@ -1,5 +1,5 @@
 Scratch_Pad(){
-	static file
+	static file,buttoncount
 	;class-ify
 	if !IsObject(file){
 		FileCreateDir,Projects
@@ -9,15 +9,31 @@ Scratch_Pad(){
 	Gui,+Resize
 	Gui,Margin,0,0
 	v.scratch:=new s(14,{pos:"w500 h300"}),hotkeys([14],{"+Esc":"14guiclose","^v":"paste"})
-	Gui,Add,Button,gsprun,Run
-	Gui,Add,Button,x+10 gspdyna,Dyna Run
-	Gui,Add,Button,x+10 gspkill,Kill Process
-	if IsLabel("postscratchpad")
-		Gui,Add,Button,x+10 gpostscratchpad,Post To ahk.us.to
+	Gui,Add,Button,gsprun,&Run
+	Gui,Add,Button,x+5 gspdyna,&Dyna Run
+	Gui,Add,Button,x+5 gspkill,&Kill Process
+	Gui,Add,Button,x+5 g14GuiClose,C&lose
+	Gui,Add,Button,x+5 gspcreate,Cr&eate Project From Code
+	if IsLabel("postscratchpad"){
+		Gui,Add,Button,x+5 gpostscratchpad,&Post To ahk.us.to
+		buttoncount:=6
+	}
 	pos:=settings.ssn("//Scratch_Pad").Text?settings.ssn("//Scratch_Pad").Text:""
 	Gui,Show,%pos%,Scratch Pad
 	WinWait,% hwnd([14])
 	bracesetup(14),hk(14),csc({hwnd:v.scratch.sc}),v.scratch.2181(0,file.read(file.length))
+	return
+	spcreate:
+	text:=csc().gettext(),default:=ProjectFolder()
+	InputBox,newfile,Create New File,Input the name of the new file (.ahk will be added) and a new folder will be created`nFile will be created in %default%`nTo change this directory goto Edit/Default Project Folder
+	if(ErrorLevel||newfile="")
+		return
+	newfile:=clean(newfile,1)
+	newfile:=default "\" newfile "\" newfile ".ahk"
+	if FileExist(newfile)
+		return m("File exists. Please enter another")
+	new(newfile,text)
+	Gosub,14GuiClose
 	return
 	14GuiClose:
 	if (sc.2102||sc.2202)
@@ -60,7 +76,7 @@ Scratch_Pad(){
 	14GuiSize:
 	sc:=csc()
 	ControlGetPos,,,,h,Button1,% hwnd([14])
-	Loop,4
+	Loop,%buttoncount%
 		GuiControl,move,Button%A_Index%,% "y" A_GuiHeight-h
 	WinMove,% "ahk_id" v.scratch.sc,,0,0,A_GuiWidth,% A_GuiHeight-h
 	return

@@ -20,8 +20,10 @@ context(return=""){
 	if Return
 		return found
 	if !(found){
-		if cmd:=code_explorer.functions[current(2).file,command1]{
-			syn:=command1 "(" cmd.args ")",found:=command1,info:=syn
+		StringUpper,search,command1
+		ea:=xml.ea(cexml.ssn("//main[@file='" ssn(current(1),"@file").text "']/file/info[@type='function' and @upper='" search "']"))
+		if cmd:=ea.text{
+			info:=syn:=cmd "(" ea.args ")",found:=cmd
 			goto conbottom
 		}
 		return
