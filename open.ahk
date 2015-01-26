@@ -1,7 +1,7 @@
 open(filelist="",show=""){
 	static root,top
 	if !filelist{
-		FileSelectFile,filename,,,,*.ahk
+		FileSelectFile,filename,,% ProjectFolder(),,*.ahk
 		if ErrorLevel
 			return
 		if ff:=files.ssn("//main[@file='" filename "']"){

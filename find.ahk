@@ -3,7 +3,7 @@ find(){
 	file:=ssn(current(1),"@file").text,infopos:=positions.ssn("//*[@file='" file "']"),last:=ssn(infopos,"@search").text,search:=last?last:"Type in your query here",ea:=settings.ea("//search/find"),newwin:=new windowtracker(5),value:=[]
 	for a,b in ea
 		value[a]:=b?"Checked":""
-	newwin.Add(["Edit,gfindcheck w500 vfind r1,,w","TreeView,w500 h300 AltSubmit gstate,,wh","Checkbox,vregex " value.regex ",Regex Search,y","Checkbox,vgr x+10 " value.gr ",Greed,y","Checkbox,xm vcs " value.cs ",Case Sensitive,y","Checkbox,vsort gfsort " value.sort ",Sort by Segment,y","Checkbox,vallfiles " value.allfiles ",Search in All Files,y","Button,gsearch Default,Search,y","Button,gcomment,Toggle Comment,y"])
+	newwin.Add(["Edit,gfindcheck w500 vfind r1,,w","TreeView,w500 h300 AltSubmit gstate,,wh","Checkbox,vregex " value.regex ",Regex Search,y","Checkbox,vgr x+10 " value.gr ",Greed,y","Checkbox,xm vcs " value.cs ",Case Sensitive,y","Checkbox,vsort gfsort " value.sort ",Sort by Segment,y","Checkbox,vallfiles " value.allfiles ",Search in All Files,y","Button,gsearch Default,   Search   ,y","Button,gcomment,Toggle Comment,y"])
 	newwin.Show("Search")
 	ControlSetText,Edit1,%last%,% hwnd([5])
 	ControlSend,Edit1,^a,% hwnd([5])
@@ -14,13 +14,6 @@ find(){
 		ControlSetText,Button6,Search,% hwnd([5])
 	return
 	search:
-	;what's not working
-	;-Double click on a search term to goto it
-	;-pressing the jump button does not default to jump, it defaults to search (make a new button maybe?)
-	;-on any default press, get the focused control.
-	;--if focused=edit do a search
-	;--if focused=TreeView check to see if it needs to be expanded/contracted, if not jump
- 	;--possibly make a "jump" separate from the context sensitive button and have it greyed out when you can not jump (top level)
 	ControlGetText,Button,Button6,% hwnd([5])
 	if (InStr(button,"search")){
 		;GuiControl,5:+g,SysTreeView321
@@ -29,6 +22,7 @@ find(){
 			Return
 		infopos.setattribute("search",find),foundinfo:=[]
 		Gui,5:Default
+		GuiControl,5:+g,SysTreeView321
 		GuiControl,5:-Redraw,SysTreeView321
 		list:=ea.allfiles?files.sn("//file/@file"):sn(current(1),"*/@file"),contents:=update("get").1,TV_Delete()
 		pre:="m`nO",pre.=ea.cs?"":"i",pre.=ea.greed?"":"U",parent:=0,ff:=ea.regex?find:"\Q" find "\E"
@@ -50,40 +44,44 @@ find(){
 		}
 		if TV_GetCount()
 			ControlFocus,SysTreeView321
+		;ControlSetText,Button6,Jump,% hwnd([5])
 		GuiControl,5:+Redraw,SysTreeView321
-		ControlSetText,Button6,Jump,% hwnd([5])
-		refreshing:=0
+		SetTimer,findlabel,-200
+		GuiControl,5:+gstate,SysTreeView321
 	}else if (Button="jump"){
 		ea:=foundinfo[TV_GetSelection()],sc:=csc(),tv(files.ssn("//*[@file='" ea.file "']/@tv").text)
 		Sleep,100
 		sc.2160(ea.start,ea.end),sc.2169
 		if(v.options.auto_close_find)
 			hwnd({rem:5})
-	}
-	else
+	}else{
 		sel:=TV_GetSelection(),TV_Modify(sel,ec:=TV_Get(sel,"E")?"-Expand":"Expand")
+		SetTimer,findlabel,-200
+	}
+	return
 	state:
+	if(A_GuiEvent="DoubleClick"){
+		ea:=foundinfo[TV_GetSelection()],sc:=csc(),tv(files.ssn("//*[@file='" ea.file "']/@tv").text)
+		Sleep,100
+		return sc.2160(ea.start,ea.end),sc.2169,hwnd({rem:5})
+	}if(A_GuiEvent=="f")
+		return
 	sel:=TV_GetSelection()
 	Gui,5:TreeView,SysTreeView321
 	if refreshing
 		return
 	ControlGetFocus,focus,% hwnd([5])
-	if !InStr(Focus,"SysTreeView321"){
-		ControlSetText,Button6,Search,% hwnd([5])
-		return
-	}
-	if TV_GetChild(sel)
-		ControlSetText,Button6,% TV_Get(sel,"E")?"Contract":"Expand",% hwnd([5])
-	else if TV_GetCount()
-		ControlSetText,Button6,Jump,% hwnd([5])
-	else
-		ControlSetText,Button6,Search,% hwnd([5])
+	SetTimer,findlabel,-200
 	return
-	sel:=TV_GetSelection()
-	if TV_GetChild(sel)
-		ControlSetText,Button6,% TV_Get(sel,"E")?"Contract":"Expand",% hwnd([5])
-	else
-		ControlSetText,Button6,Jump,% hwnd([5])
+	findlabel:
+	Gui,5:Default
+	if !TV_GetCount()
+		Buttontext:="Search"
+	else if TV_GetChild(sel)
+		Buttontext:=TV_Get(sel,"E")?"Contract":"Expand"
+	else if(TV_GetCount()&&TV_GetChild(sel)=0)
+		Buttontext:="Jump"
+	ControlSetText,Button6,%Buttontext%,% hwnd([5])
 	return
 	fsort:
 	ControlSetText,Button6,Search,% hwnd([5])
