@@ -6,7 +6,7 @@ gui(){
 		Enter[b "Enter"]:="checkqf"
 	for a,b in StrSplit("WheelLeft,WheelRight",",")
 		Enter[b]:="scrollwheel"
-	Enter["^c"]:="copy",hotkeys([1],enter)
+	Enter["^c"]:="copy",Enter["^x"]:="cut",hotkeys([1],enter)
 	Gui,Add,StatusBar,hwndsb,StatusBar Info
 	new s(1,{main:1}),v.win2:=win2,v.win3:=win3
 	ControlGetPos,,,,h,,ahk_id%sb%

@@ -1,10 +1,8 @@
 Scratch_Pad(){
 	static file,buttoncount
 	;class-ify
-	if !IsObject(file){
-		FileCreateDir,Projects
-		file:=FileOpen("projects\Scratch Pad.ahk","rw")
-	}
+	FileCreateDir,Projects
+	file:=FileOpen("projects\Scratch Pad.ahk",3)
 	setup(14)
 	Gui,+Resize
 	Gui,Margin,0,0
@@ -21,7 +19,8 @@ Scratch_Pad(){
 	pos:=settings.ssn("//Scratch_Pad").Text?settings.ssn("//Scratch_Pad").Text:""
 	Gui,Show,%pos%,Scratch Pad
 	WinWait,% hwnd([14])
-	bracesetup(14),hk(14),csc({hwnd:v.scratch.sc}),v.scratch.2181(0,file.read(file.length))
+	bracesetup(14),hk(14),csc({hwnd:v.scratch.sc}),tt:=RegExReplace(file.Read(file.length),"\r\n","`n")
+	length:=VarSetCapacity(text,strput(tt,"utf-8")),StrPut(tt,&text,length,"utf-8"),sc:=csc(),sc.2037(65001),sc.2181(0,&text)
 	return
 	spcreate:
 	text:=csc().gettext(),default:=ProjectFolder()
@@ -69,9 +68,14 @@ Scratch_Pad(){
 	sc:=csc({hwnd:hwnd+0})
 	return
 	spsave:
-	file.seek(0)
-	file.write(v.scratch.gettext())
-	file.length(file.position),file.seek(0)
+	file:=""
+	FileDelete,Projects\Scratch Pad.ahk
+	FileAppend,% v.scratch.gettext(),Projects\Scratch Pad.ahk,UTF-16
+	file:=FileOpen("Projects\Scratch Pad.ahk",3,"UTF-8")
+	;file.seek(0)
+	file.write(RegExReplace(v.scratch.gettext(),"\n","`r`n"))
+	file.length(file.position),file:=""
+	;m(ErrorLevel,v.scratch.gettext())
 	return
 	14GuiSize:
 	sc:=csc()

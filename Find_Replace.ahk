@@ -51,11 +51,9 @@ Find_Replace(){
 				tv(ea.tv)
 				Sleep,200
 				sc.2181(0,rep)
-			}else{
-				text:=rep,update({file:ea.file,text:rep})
-			}
+			}else
+				update({file:ea.file,text:rep})
 		}
 	}
-	;frall:
 	return
 }
