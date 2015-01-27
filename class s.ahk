@@ -53,29 +53,23 @@ class s{
 	__Call(code,lparam=0,wparam=0,extra=""){
 		if (code="getseltext"){
 			VarSetCapacity(text,this.2161),length:=this.2161(0,&text)
-			return StrGet(&text,length,"cp0")
+			return StrGet(&text,length,"UTF-8")
 		}
 		if (code="textrange"){
 			cap:=VarSetCapacity(text,abs(lparam-wparam)),VarSetCapacity(textrange,12,0),NumPut(lparam,textrange,0),NumPut(wparam,textrange,4),NumPut(&text,textrange,8)
 			this.2162(0,&textrange)
-			if extra
-				return strget(&text,cap,"utf-8")
-			else
-				Return strget(&text,cap,"cp0")
-			
-			return _:=extra?strget(&text,"","utf-8"):strget(&text,"","cp0")
+			return strget(&text,cap,"UTF-8")
 		}
 		if (code="getline"){
-			length:=this.2350(lparam)
-			cap:=VarSetCapacity(text,length,0),this.2153(lparam,&text)
-			return StrGet(&text,length,"cp0")
+			length:=this.2350(lparam),cap:=VarSetCapacity(text,length,0),this.2153(lparam,&text)
+			return StrGet(&text,length,"UTF-8")
 		}
 		if (code="gettext"){
-			cap:=VarSetCapacity(text,vv:=this.2182),this.2182(vv,&text),t:=strget(&text,vv,"cp0")
+			cap:=VarSetCapacity(text,vv:=this.2182),this.2182(vv,&text),t:=strget(&text,vv,"UTF-8")
 			return t
 		}
 		if (code="getuni"){
-			cap:=VarSetCapacity(text,vv:=this.2182),this.2182(vv,&text),t:=StrGet(&text,vv,"utf-8")
+			cap:=VarSetCapacity(text,vv:=this.2182),this.2182(vv,&text),t:=StrGet(&text,vv,"UTF-8")
 			return t
 		}
 		wp:=(wparam+0)!=""?"Int":"AStr"

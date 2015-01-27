@@ -1,6 +1,4 @@
 testing(){
-	search:="T"
-	;m(ssn(current(1),"@file").text)
 }
 /*
 	;clean out positions
