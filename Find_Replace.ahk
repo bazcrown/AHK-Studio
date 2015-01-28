@@ -37,7 +37,7 @@ Find_Replace(){
 	return
 	frreplace:
 	info:=newwin[]
-	csc().2170(0,info.replace)
+	csc().2170(0,[info.replace])
 	goto frfind
 	return
 	frall:
@@ -50,7 +50,7 @@ Find_Replace(){
 			if(ea.sc){
 				tv(ea.tv)
 				Sleep,200
-				sc.2181(0,rep)
+				sc.2181(0,[rep])
 			}else
 				update({file:ea.file,text:rep})
 		}
