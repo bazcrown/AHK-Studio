@@ -12,7 +12,6 @@ Scratch_Pad(){
 	Gui,Add,Button,x+5 gspkill,&Kill Process
 	Gui,Add,Button,x+5 g14GuiClose,C&lose
 	Gui,Add,Button,x+5 gspcreate,Cr&eate Project From Code
-	buttoncount:=5
 	if IsLabel("postscratchpad"){
 		Gui,Add,Button,x+5 gpostscratchpad,&Post To ahk.us.to
 		buttoncount:=6
